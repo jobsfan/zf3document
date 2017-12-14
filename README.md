@@ -3,7 +3,7 @@ I wanna to invite some developers to work with me to build a zf3 drived and with
 php官方框架的翻译项目，如果侵权请告知
 
 ## To do list ##
-1. 用zf3框架搭建一个网站 www.wendangs.com 【目前尚在备案中...】   
+1. 用zf3框架搭建一个网站 www.wendangs.com   
 2. 简易首页
 3. 数据库的建立
 4. 注册页  
