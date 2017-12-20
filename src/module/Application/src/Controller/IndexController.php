@@ -14,6 +14,16 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+        $layout = $this->layout(); //$layout->setTemplate('layout/layout');
+         
+        $headerView = new ViewModel();
+        $headerView->setTemplate('application/index/header1');
+        $layout->addChild($headerView, 'header');
+         
+        $footerView = new ViewModel();
+        $footerView->setTemplate('application/index/footer1');
+        $layout->addChild($footerView, 'footer');
+        
         return new ViewModel();
     }
 }
