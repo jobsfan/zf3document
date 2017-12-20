@@ -27,10 +27,10 @@ return [
             'application' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/application[/:controller[/:action]]',
+                    'route'    => '/application/[:controller[/:action]]',
                     'constraints' => array(
-                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z]',
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z]',
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
