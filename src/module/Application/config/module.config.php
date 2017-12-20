@@ -9,7 +9,8 @@ namespace Application;
 
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
-use Zend\ServiceManager\Factory\InvokableFactory;
+//use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\Mvc\Controller\LazyControllerAbstractFactory;
 
 return [
     'router' => [
@@ -33,7 +34,6 @@ return [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z]',
                     ),
                     'defaults' => [
-                        '__NAMESPACE__' => 'Application\Controller',
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
                     ],
@@ -42,9 +42,12 @@ return [
         ],
     ],
     'controllers' => [
-        'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
+        'abstract_factories' => [
+            LazyControllerAbstractFactory::class,
         ],
+        /* 'factories' => [
+            Controller\IndexController::class => InvokableFactory::class,
+        ], */
     ],
     'view_manager' => [
         'display_not_found_reason' => true,
