@@ -9,8 +9,7 @@ namespace Application;
 
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
-//use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\Mvc\Controller\LazyControllerAbstractFactory;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
@@ -42,12 +41,9 @@ return [
         ],
     ],
     'controllers' => [
-        'abstract_factories' => [
-            LazyControllerAbstractFactory::class,
-        ],
-        /* 'factories' => [
+        'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
-        ], */
+        ],
     ],
     'view_manager' => [
         'display_not_found_reason' => true,
