@@ -45,6 +45,9 @@ return [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
         ],
+        'invokables' => [
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+        ],
     ],
     'view_manager' => [
         'display_not_found_reason' => true,
