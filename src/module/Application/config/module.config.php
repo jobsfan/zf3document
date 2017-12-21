@@ -33,7 +33,7 @@ return [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => [
-                        '__NAMESPACE__' => 'Application\Controller',
+                        //'__NAMESPACE__' => 'Application\Controller',
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
                     ],
