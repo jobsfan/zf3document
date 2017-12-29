@@ -27,7 +27,36 @@ class IndexController extends AbstractActionController
         return new ViewModel();
     }
     
+    /**
+    * 文档规范
+    * @param 
+    * @return what return
+    * @author Jobs Fan
+    * @date: 上午11:10:54
+    */
     public function specificationAction()
+    {
+        $layout = $this->layout(); //$layout->setTemplate('layout/layout');
+         
+        $headerView = new ViewModel();
+        $headerView->setTemplate('application/index/header1');
+        $layout->addChild($headerView, 'header');
+         
+        $footerView = new ViewModel();
+        $footerView->setTemplate('application/index/footer1');
+        $layout->addChild($footerView, 'footer');
+        
+        return new ViewModel();
+    }
+    
+    /**
+    * 踩过的坑
+    * @param 
+    * @return what return
+    * @author Jobs Fan
+    * @date: 上午11:11:27
+    */
+    public function trapAction()
     {
         $layout = $this->layout(); //$layout->setTemplate('layout/layout');
          
