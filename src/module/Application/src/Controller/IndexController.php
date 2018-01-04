@@ -70,4 +70,26 @@ class IndexController extends AbstractActionController
         
         return new ViewModel();
     }
+    
+    /**
+    * 计划列表
+    * @param
+    * @return what return
+    * @author Jobs Fan
+    * @date: 上午11:11:27
+    */
+    public function todolistAction()
+    {
+        $layout = $this->layout(); //$layout->setTemplate('layout/layout');
+        
+        $headerView = new ViewModel();
+        $headerView->setTemplate('application/index/header1');
+        $layout->addChild($headerView, 'header');
+        
+        $footerView = new ViewModel();
+        $footerView->setTemplate('application/index/footer1');
+        $layout->addChild($footerView, 'footer');
+        
+        return new ViewModel();
+    }
 }
