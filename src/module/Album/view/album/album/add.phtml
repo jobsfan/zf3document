@@ -1,9 +1,7 @@
 <?php
 $title = 'Add new album';
 $this->headTitle($title);
-?>
-<h1><?= $this->escapeHtml($title) ?></h1>
-<?php
+
 // This provides a default CSS class and placeholder text for the title element:
 $album = $this->form->get('title');
 $album->setAttribute('class', 'form-control');
@@ -24,7 +22,8 @@ $this->form->prepare();
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-		
+			
+			<h1><?= $this->escapeHtml($title) ?></h1>
 			<?php // Wrap the elements in divs marked as form groups, and render the
                   // label, element, and errors separately within ?>
             <?php echo $this->form()->openTag($this->form); ?>

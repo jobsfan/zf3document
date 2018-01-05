@@ -3,9 +3,7 @@
 
 $title = 'Edit album';
 $this->headTitle($title);
-?>
-<h1><?= $this->escapeHtml($title) ?></h1>
-<?php
+
 $album = $this->form->get('title');
 $album->setAttribute('class', 'form-control');
 $album->setAttribute('placeholder', 'Album title');
@@ -27,6 +25,7 @@ $this->form->prepare();
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
+			<h1><?= $this->escapeHtml($title) ?></h1>
 			<?php echo $this->form()->openTag($this->form); ?>
 			<div class="form-group">
                 <?= $this->formLabel($album) ?>
