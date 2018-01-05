@@ -1,1 +1,51 @@
 <?php
+$title = 'Add new album';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<?php
+// This provides a default CSS class and placeholder text for the title element:
+$album = $this->form->get('title');
+$album->setAttribute('class', 'form-control');
+$album->setAttribute('placeholder', 'Album title');
+
+// This provides a default CSS class and placeholder text for the artist element:
+$artist = $this->form->get('artist');
+$artist->setAttribute('class', 'form-control');
+$artist->setAttribute('placeholder', 'Artist');
+
+// This provides CSS classes for the submit button:
+$submit = $this->form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$this->form->setAttribute('action', $this->url('album', ['action' => 'add']));
+$this->form->prepare();
+?>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+		
+			<?php // Wrap the elements in divs marked as form groups, and render the
+                  // label, element, and errors separately within ?>
+            <?php echo $this->form()->openTag($this->form); ?>
+            <div class="form-group">
+                <?= $this->formLabel($album) ?>
+                <?= $this->formElement($album) ?>
+                <?= $this->formElementErrors()->render($album, ['class' => 'help-block']) ?>
+            </div>
+            
+            <div class="form-group">
+                <?= $this->formLabel($artist) ?>
+                <?= $this->formElement($artist) ?>
+                <?= $this->formElementErrors()->render($artist, ['class' => 'help-block']) ?>
+            </div>
+            
+            <?php
+            echo $this->formSubmit($submit);
+            echo $this->formHidden($this->form->get('id'));
+            echo $this->form()->closeTag();
+            ?>
+		
+		</div>
+	</div>
+</div>
