@@ -55,6 +55,7 @@
     "require-dev": {
         "zendframework/zend-db": "^2.9",
         "zendframework/zend-test": "^3.0.1",
-        "zendframework/zend-navigation": "^2.8"
+        "zendframework/zend-navigation": "^2.8",
+        "zendframework/zend-paginator": "^2.8"
     }
 }

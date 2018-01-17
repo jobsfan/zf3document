@@ -18,6 +18,7 @@ return array(
     'Zend\\ServiceManager\\' => array($vendorDir . '/zendframework/zend-servicemanager/src'),
     'Zend\\Router\\' => array($vendorDir . '/zendframework/zend-router/src'),
     'Zend\\Psr7Bridge\\' => array($vendorDir . '/zendframework/zend-psr7bridge/src'),
+    'Zend\\Paginator\\' => array($vendorDir . '/zendframework/zend-paginator/src'),
     'Zend\\Navigation\\' => array($vendorDir . '/zendframework/zend-navigation/src'),
     'Zend\\Mvc\\Plugin\\Prg\\' => array($vendorDir . '/zendframework/zend-mvc-plugin-prg/src'),
     'Zend\\Mvc\\Plugin\\Identity\\' => array($vendorDir . '/zendframework/zend-mvc-plugin-identity/src'),
