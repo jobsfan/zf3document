@@ -68,7 +68,7 @@ return [
     'navigation' => [
         'default' => [
             [
-                'label' => 'Home',
+                'label' => '首页',
                 'route' => 'home',
             ],
             [
