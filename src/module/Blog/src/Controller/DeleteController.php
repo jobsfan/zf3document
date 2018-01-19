@@ -45,6 +45,16 @@ class DeleteController extends AbstractActionController
             return $this->redirect()->toRoute('blog');
         }
         
+        $layout = $this->layout(); //$layout->setTemplate('layout/layout');
+        
+        $headerView = new ViewModel();
+        $headerView->setTemplate('application/index/header1');
+        $layout->addChild($headerView, 'header');
+        
+        $footerView = new ViewModel();
+        $footerView->setTemplate('application/index/footer1');
+        $layout->addChild($footerView, 'footer');
+        
         $request = $this->getRequest();
         if (! $request->isPost()) {
             return new ViewModel(['post' => $post]);
@@ -54,9 +64,9 @@ class DeleteController extends AbstractActionController
             || 'Delete' !== $request->getPost('confirm', 'no')
             ) {
                 return $this->redirect()->toRoute('blog');
-            }
+        }
             
-            $post = $this->command->deletePost($post);
-            return $this->redirect()->toRoute('blog');
+        $post = $this->command->deletePost($post);
+        return $this->redirect()->toRoute('blog');
     }
 }
