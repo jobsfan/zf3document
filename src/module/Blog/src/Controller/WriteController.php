@@ -43,6 +43,16 @@ class WriteController extends AbstractActionController
     
     public function addAction()
     {
+        $layout = $this->layout(); //$layout->setTemplate('layout/layout');
+        
+        $headerView = new ViewModel();
+        $headerView->setTemplate('application/index/header1');
+        $layout->addChild($headerView, 'header');
+        
+        $footerView = new ViewModel();
+        $footerView->setTemplate('application/index/footer1');
+        $layout->addChild($footerView, 'footer');
+        
         $request   = $this->getRequest();
         $viewModel = new ViewModel(['form' => $this->form]);
         
@@ -65,16 +75,6 @@ class WriteController extends AbstractActionController
             // report it to the user. For now, we'll just re-throw.
             throw $ex;
         }
-        
-        $layout = $this->layout(); //$layout->setTemplate('layout/layout');
-        
-        $headerView = new ViewModel();
-        $headerView->setTemplate('application/index/header1');
-        $layout->addChild($headerView, 'header');
-        
-        $footerView = new ViewModel();
-        $footerView->setTemplate('application/index/footer1');
-        $layout->addChild($footerView, 'footer');
         
         return $this->redirect()->toRoute(
             'blog/detail',
