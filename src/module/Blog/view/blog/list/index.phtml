@@ -5,15 +5,28 @@
             ->setPartial('partial/breadcrumb') ?>
 	<div class="row">
 		<div class="col-md-12">
-			<h1>Blog</h1>
+			<h1>Blog Posts</h1>
 
+            <div class="list-group">
             <?php foreach ($this->posts as $post): ?>
-            <article>
-              <h1 id="post<?= $post->getId() ?>"><?= $post->getTitle() ?></h1>
+              <div class="list-group-item">
+                <h4 class="list-group-item-heading">
+                  <a href="<?= $this->url('blog/detail', ['id' => $post->getId()]) ?>">
+                    <?= $post->getTitle() ?>
+                  </a>
+                </h4>
             
-              <p><?= $post->getText() ?></p>
-            </article>
+                <div class="btn-group" role="group" aria-label="Post actions">
+                  <a class="btn btn-xs btn-default" href="<?= $this->url('blog/edit', ['id' => $post->getId()]) ?>">Edit</a>
+                  <a class="btn btn-xs btn-danger" href="<?= $this->url('blog/delete', ['id' => $post->getId()]) ?>">Delete</a>
+                </div>
+              </div>
             <?php endforeach ?>
+            </div>
+            
+            <div class="btn-group" role="group" aria-label="Post actions">
+              <a class="btn btn-primary" href="<?= $this->url('blog/add') ?>">Write new post</a>
+            </div>
 		</div>
 	</div>
 </div>

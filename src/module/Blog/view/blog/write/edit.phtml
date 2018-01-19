@@ -5,14 +5,14 @@
             ->setPartial('partial/breadcrumb') ?>
 	<div class="row">
 		<div class="col-md-12">
-			<h1>Add a blog post</h1>
+			<h1>Edit blog post</h1>
 
             <?php
             $form = $this->form;
-            $form->setAttribute('action', $this->url());
+            $form->setAttribute('action', $this->url('blog/edit', [], true));
             echo $this->partial('blog/write/form', [
                 'form' => $form,
-                'submitLabel' => 'Insert new post',
+                'submitLabel' => 'Update post',
             ]);
             ?>
 		</div>

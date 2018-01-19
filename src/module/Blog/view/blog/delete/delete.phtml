@@ -1,0 +1,23 @@
+<div class="container">
+	<?= $this->navigation('navigation')
+            ->breadcrumbs()
+            ->setMinDepth(0)
+            ->setPartial('partial/breadcrumb') ?>
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Delete post</h1>
+
+            <p>Are you sure you want to delete the following post?</p>
+            
+            <ul class="list-group">
+                <li class="list-group-item"><?= $this->escapeHtml($this->post->getTitle()) ?></li>
+            </ul>
+            
+            <form action="<?php $this->url('blog/delete', [], true) ?>" method="post">
+                <input type="hidden" name="id" value="<?= $this->escapeHtmlAttr($this->post->getId()) ?>" />
+                <input class="btn btn-default" type="submit" name="confirm" value="Cancel" />
+                <input class="btn btn-danger" type="submit" name="confirm" value="Delete" />
+            </form>
+		</div>
+	</div>
+</div>
