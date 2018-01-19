@@ -98,17 +98,22 @@ return [
                 'pages' => [
                     [
                         'label'  => 'Add',
-                        'route'  => 'blog',
+                        'route'  => 'blog/add',
                         'action' => 'add',
                     ],
                     [
+                        'label'  => 'Detail',
+                        'route'  => 'blog/detail',
+                        'action' => 'detail',
+                    ],
+                    [
                         'label'  => 'Edit',
-                        'route'  => 'blog',
+                        'route'  => 'blog/edit',
                         'action' => 'edit',
                     ],
                     [
                         'label'  => 'Delete',
-                        'route'  => 'blog',
+                        'route'  => 'blog/delete',
                         'action' => 'delete',
                     ],
                 ],
