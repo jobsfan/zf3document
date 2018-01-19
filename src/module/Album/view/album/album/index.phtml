@@ -6,6 +6,10 @@ $this->headTitle($title);
 ?>
 
 <div class="container">
+	<?= $this->navigation('navigation')
+            ->breadcrumbs()
+            ->setMinDepth(0)
+            ->setPartial('partial/breadcrumb') ?>
 	<div class="row">
 		<div class="col-md-12">
 			<h1><?= $this->escapeHtml($title) ?></h1>

@@ -1,9 +1,19 @@
-<h1>Blog</h1>
+<div class="container">
+	<?= $this->navigation('navigation')
+            ->breadcrumbs()
+            ->setMinDepth(0)
+            ->setPartial('partial/breadcrumb') ?>
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Blog</h1>
 
-<?php foreach ($this->posts as $post): ?>
-<article>
-  <h1 id="post<?= $post->getId() ?>"><?= $post->getTitle() ?></h1>
-
-  <p><?= $post->getText() ?></p>
-</article>
-<?php endforeach ?>
+            <?php foreach ($this->posts as $post): ?>
+            <article>
+              <h1 id="post<?= $post->getId() ?>"><?= $post->getTitle() ?></h1>
+            
+              <p><?= $post->getText() ?></p>
+            </article>
+            <?php endforeach ?>
+		</div>
+	</div>
+</div>

@@ -34,7 +34,7 @@ return [
                     ),
                     'defaults' => [
                         '__NAMESPACE__' => 'Application\Controller', //这个好像是必须的
-                        'controller' => Controller\IndexController::class, //'controller' => Application\Controller\IndexController::class,
+                        'controller' => Controller\IndexController::class,
                         'action'     => 'index',
                     ],
                 ],
