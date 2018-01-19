@@ -33,8 +33,9 @@ return [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => [
-                        '__NAMESPACE__' => 'Application\Controller', //这个好像是必须的
-                        'controller' => Controller\IndexController::class,
+                        //'__NAMESPACE__' => 'Application\Controller', //这个好像是必须的
+                        //'controller' => Controller\IndexController::class,
+                        'controller' => Application\Controller\IndexController::class,
                         'action'     => 'index',
                     ],
                 ],
