@@ -12,11 +12,11 @@ use Zend\Mvc\ModuleRouteListener;
 
 class Module
 {
-    const VERSION = '3.0.3-dev';
+    //const VERSION = '3.0.3-dev';
     
     public function onBootstrap(MvcEvent $e)
     {
-        $eventManager        = $e->getApplication()->getEventManager();
+        $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
     }
