@@ -12,8 +12,12 @@
  */
 
 return [
-    'db' => [
+    /* 'db' => [
         'driver' => 'Pdo',
         'dsn'    => sprintf('sqlite:%s/data/zftutorial.db', realpath(getcwd())),
+    ], */
+    'db' => [
+        'driver' => 'Pdo',
+        'dsn'    => 'mysql:dbname=jobsfan_wendang;host=localhost;charset=utf8',
     ],
 ];
