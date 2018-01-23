@@ -22,6 +22,7 @@ class Module implements ConfigProviderInterface
                     return new Model\AlbumTable($tableGateway);
                 },
                 'AlbumTableGateway' => function ($container) { //Model\AlbumTableGateway::class
+                    echo AdapterInterface::class;exit;
                     $dbAdapter = $container->get(AdapterInterface::class);
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Model\Album());
