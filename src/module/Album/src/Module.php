@@ -22,7 +22,10 @@ class Module implements ConfigProviderInterface
                     return new Model\AlbumTable($tableGateway);
                 },
                 'AlbumTableGateway' => function ($container) { //Model\AlbumTableGateway::class
-                    echo AdapterInterface::class;exit;
+                    $config = $container->get('config');
+                    $tutorialDb = $config['tutorial'];
+                    print_r($tutorialDb);exit;
+                    $dbAdapter = new Adapter($clickdb);
                     $dbAdapter = $container->get(AdapterInterface::class);
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Model\Album());
