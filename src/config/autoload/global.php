@@ -18,6 +18,6 @@ return [
     ], */
     'db' => [
         'driver' => 'Pdo',
-        'dsn'    => 'mysql:dbname=jobsfan_wendang;host=localhost;charset=utf8',
+        'dsn'    => 'mysql:dbname=wendang_tutorial;host=localhost;charset=utf8',
     ],
 ];
