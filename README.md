@@ -27,4 +27,7 @@ php官方框架的翻译项目，如果侵权请告知
 数据库在 doc/database-sample 里面，来自官网的demo，我先是用sqlite3进行尝试，后面用mysql替代了sqlite3，原先的sqlite3你可以在data这个目录中找   
 ...   
 
+## 有感 ##  
+官方教程blog有点小复杂，它通过ControllerFactory来new了一个Controller，通过key【PostRepositoryInterface】指向了过渡key别名【ZendDbSqlRepository】的ZendDbSqlRepositoryFactory，在这个factory里面实例化了一个ZendDbSqlRepository，把这个repository实例传到controller的构造函数，用以进行增删改查   
+
 ## 贡献者除了会在项目代码的注释中有体现外，还会在网站显眼位置有公示 ##
