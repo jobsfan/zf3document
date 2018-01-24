@@ -16,7 +16,6 @@ class ListControllerFactory implements FactoryInterface
     */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        echo PostRepositoryInterface::class;exit;
         return new ListController($container->get(PostRepositoryInterface::class));
     }
 }
