@@ -8,8 +8,6 @@ use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Db\Sql\Sql;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Db\Adapter\Adapter;
 
 class ZendDbSqlRepository implements PostRepositoryInterface
 {
@@ -29,16 +27,11 @@ class ZendDbSqlRepository implements PostRepositoryInterface
     private $postPrototype;
     
     public function __construct(
-        //AdapterInterface $db,
-        ServiceManager $container,
+        AdapterInterface $db,
         HydratorInterface $hydrator,
         Post $postPrototype
         ) {
-            $config = $container->get('config');
-            $tutorialDb = $config['tutorial'];
-            $dbAdapter = new Adapter($tutorialDb);
-            
-            $this->db            = $dbAdapter;
+            $this->db            = $db;
             $this->hydrator      = $hydrator;
             $this->postPrototype = $postPrototype;
     }
