@@ -2,7 +2,14 @@
 I wanna to invite some developers to work with me to build a zf3 drived and with admin UI foreign tech documents translation system.   
 php官方框架的翻译项目，如果侵权请告知   
 
-## 源码储存在src文件夹 ##   
+## 源码储存在src文件夹 ##
+
+## 2018年的小目标 ##
+1、一个简易的后台UI，用之前的，整合进来   
+2、简单的登录，注册模块   
+3、简易的授权   
+4、采集待翻译数据   
+5、翻译逻辑搭建   
 
 ## To do list ##
 1. 用zf3框架搭建一个网站 www.wendangs.com   
