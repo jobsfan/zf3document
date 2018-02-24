@@ -7,7 +7,7 @@ use Zend\Router\Http\Segment;
 return [
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
+            //Controller\IndexController::class => InvokableFactory::class,
         ],
         'invokables' => [
             'Admin\Controller\Index' => 'Admin\Controller\IndexController',
