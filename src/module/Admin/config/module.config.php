@@ -7,7 +7,7 @@ use Zend\Router\Http\Segment;
 return [
     'controllers' => [
         'factories' => [
-            //Controller\IndexController::class => InvokableFactory::class,
+            Controller\IndexController::class => InvokableFactory::class,
         ],
         'invokables' => [
             'Admin\Controller\Index' => 'Admin\Controller\IndexController',
@@ -16,7 +16,7 @@ return [
     
     'router' => [
         'routes' => [
-            'album' => [
+            'admin' => [
                 'type'    => Segment::class,
                 'options' => [
                     'route'    => '/admin/[:controller[/:action]]',
@@ -25,7 +25,7 @@ return [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z0-9]',
                     ),
                     'defaults' => [
-                        '__NAMESPACE__' => 'Application\Controller', //这个好像是必须的
+                        '__NAMESPACE__' => 'Admin\Controller', //这个好像是必须的
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
                     ],
