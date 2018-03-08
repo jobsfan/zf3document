@@ -34,6 +34,7 @@ class DeleteController extends AbstractActionController
     
     public function deleteAction()
     {
+        exit('666');
         $id = $this->params()->fromRoute('id');
         if (! $id) {
             return $this->redirect()->toRoute('blog');
