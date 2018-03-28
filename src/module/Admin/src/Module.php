@@ -14,6 +14,30 @@ class Module implements ConfigProviderInterface
         $moduleRouteListener->attach($eventManager);
     }
     
+    /**
+    * 授权方法，统一的授权在这里进行
+    * @param 入参
+    * @return 出参
+    * @author Jobs Fan
+    * @date: 2018年3月28日
+    */
+    public function doAuthorization()
+    {
+        
+    }
+    
+    /**
+    * 为授权模块admin统一设置视图
+    * @param 入参
+    * @return 出参
+    * @author Jobs Fan
+    * @date: 2018年3月28日
+    */
+    public function setLayout()
+    {
+        
+    }
+    
     public function getConfig()
     {
         return include __DIR__ . '/../config/module.config.php';
