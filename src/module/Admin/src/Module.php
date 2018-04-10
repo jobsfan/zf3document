@@ -58,7 +58,7 @@ class Module implements ConfigProviderInterface
         
         if (false === strpos($controller, __NAMESPACE__)) return; //strpos($controller, __NAMESPACE__) int(0)
         
-        $viewModel->setTemplate('layout/layout');
+        $viewModel->setTemplate('layout/admin');
         
         /* if ($controller == 'Members\Controller\Index' && ($action=='login' || $action=='register'))
         {
