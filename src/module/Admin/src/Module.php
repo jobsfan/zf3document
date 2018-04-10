@@ -54,9 +54,16 @@ class Module implements ConfigProviderInterface
         
         $matches = $e->getRouteMatch();
         $controller = $matches->getParam('controller'); //Admin\Controller\Index
-        $action = $matches->getParam('action');
-        print_r(__NAMESPACE__);
-        print_r($action);exit;
+        $action = $matches->getParam('action'); //action login   __NAMESPACE__ Admin
+        
+        $dd = strpos($controller, __NAMESPACE__);
+        var_dump($dd);exit;
+        
+        if (false === strpos($controller, __NAMESPACE__))
+        {
+            return;
+        }
+        
         if ($controller == 'Members\Controller\Index' && ($action=='login' || $action=='register'))
         {
             $viewModel->setTemplate('layout/simple');
