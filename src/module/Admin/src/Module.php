@@ -10,6 +10,10 @@ class Module implements ConfigProviderInterface
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager = $e->getApplication()->getEventManager();
+        
+        $eventManager->attach('dispatch', array($this, 'setLayout'));
+        $eventManager->attach('dispatch', array($this, 'doAuthorization'));
+        
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
     }
