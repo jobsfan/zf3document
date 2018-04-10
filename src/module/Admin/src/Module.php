@@ -53,9 +53,10 @@ class Module implements ConfigProviderInterface
         $viewModel = $e->getViewModel();
         
         $matches = $e->getRouteMatch();
-        $controller = $matches->getParam('controller');
-        print_r($controller);exit;
+        $controller = $matches->getParam('controller'); //Admin\Controller\Index
         $action = $matches->getParam('action');
+        print_r(__NAMESPACE__);
+        print_r($action);exit;
         if ($controller == 'Members\Controller\Index' && ($action=='login' || $action=='register'))
         {
             $viewModel->setTemplate('layout/simple');
