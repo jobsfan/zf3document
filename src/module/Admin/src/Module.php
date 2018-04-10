@@ -11,8 +11,8 @@ class Module implements ConfigProviderInterface
     {
         $eventManager = $e->getApplication()->getEventManager();
         
-        $eventManager->attach('dispatch', array($this, 'setLayout'));
-        $eventManager->attach('dispatch', array($this, 'doAuthorization'));
+        $eventManager->attach('dispatch', array($this, 'setLayout'), 88);
+        $eventManager->attach('dispatch', array($this, 'doAuthorization'), 99);
         
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
@@ -37,9 +37,49 @@ class Module implements ConfigProviderInterface
     * @author Jobs Fan
     * @date: 2018年3月28日
     */
-    public function setLayout()
+    public function setLayout(MvcEvent $e)
     {
         
+        /* $matches    = $e->getRouteMatch();
+        $controller = $matches->getParam('controller');
+        if (false === strpos($controller, __NAMESPACE__)) {
+            return;
+        }
+        
+        $viewModel = $e->getViewModel();
+        $viewModel->setTemplate('content/layout'); */
+        
+        
+        $viewModel = $e->getViewModel();
+        
+        $matches = $e->getRouteMatch();
+        $controller = $matches->getParam('controller');
+        print_r($controller);exit;
+        $action = $matches->getParam('action');
+        if ($controller == 'Members\Controller\Index' && ($action=='login' || $action=='register'))
+        {
+            $viewModel->setTemplate('layout/simple');
+        }
+        elseif ($controller == 'Members\Controller\Works' && $action=='stage')
+        {
+            $viewModel->setTemplate('layout/stage');
+        }
+        else
+        {
+            $viewModel->setTemplate('layout/members');
+            
+            $headerView = new ViewModel();
+            $headerView->setTemplate('members/index/header');
+            $viewModel->addChild($headerView, 'header');
+            
+            $asideView = new ViewModel();
+            $asideView->setTemplate('members/index/aside');
+            $viewModel->addChild($asideView, 'aside');
+            
+            $footerView = new ViewModel();
+            $footerView->setTemplate('members/index/footer');
+            $viewModel->addChild($footerView, 'footer');
+        }
     }
     
     public function getConfig()
