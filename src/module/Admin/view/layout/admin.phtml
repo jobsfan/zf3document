@@ -6,14 +6,14 @@
     <?=$this->headTitle('IT技术外文文档翻译平台')->setSeparator(' - ')->setAutoEscape(false)?>
 
     <?=$this->headMeta()
-        ->appendName('viewport', 'width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no')
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0, maximum-scale=1, shrink-to-fit=no, user-scalable=no')
         ->appendName('renderer', 'webkit')
         ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
     ?>
 
     <!-- Le styles -->
     <?=$this->headLink(['rel' => 'shortcut icon','type' => 'image/vnd.microsoft.icon','href' => $this->basePath() . '/img/favicon.ico'])
-        ->prependStylesheet($this->basePath('css/lib/fontawesome-free-5.0.9/fontawesome-all.min.css'))
+        ->prependStylesheet($this->basePath('css/lib/fontawesome-free-5.0.9/css/fontawesome-all.min.css'))
         ->prependStylesheet($this->basePath('css/lib/bootstrap-4.0.0/css/bootstrap.min.css'))
     ?>
 
@@ -22,7 +22,14 @@
     </head>
 	<body>
     	<?= $this->header; ?>
-        <?= $this->content ?>
+    	<div class="container-fluid">
+    		<div class="row">
+    			<div class="col-12">
+    				<?= $this->aside ?>
+    				<?= $this->content ?>
+    			</div>
+    		</div>
+    	</div>
         <?= $this->footer; ?>
     	<?= $this->inlineScript() ?>
 	</body>
