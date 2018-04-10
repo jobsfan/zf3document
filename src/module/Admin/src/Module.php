@@ -4,6 +4,7 @@ namespace Admin;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\View\Model\ViewModel;
 
 class Module implements ConfigProviderInterface
 {
@@ -39,51 +40,33 @@ class Module implements ConfigProviderInterface
     */
     public function setLayout(MvcEvent $e)
     {
-        
-        /* $matches    = $e->getRouteMatch();
-        $controller = $matches->getParam('controller');
-        if (false === strpos($controller, __NAMESPACE__)) {
-            return;
-        }
-        
-        $viewModel = $e->getViewModel();
-        $viewModel->setTemplate('content/layout'); */
-        
-        
         $viewModel = $e->getViewModel();
         
         $matches = $e->getRouteMatch();
-        $controller = $matches->getParam('controller'); //Admin\Controller\Index
-        $action = $matches->getParam('action'); //action login   __NAMESPACE__ Admin
+        $controller = $matches->getParam('controller'); //Admin\Controller\Index //$action = $matches->getParam('action'); //action login   __NAMESPACE__ Admin
         
         if (false === strpos($controller, __NAMESPACE__)) return; //strpos($controller, __NAMESPACE__) int(0)
         
-        $viewModel->setTemplate('layout/admin');
-        
-        /* if ($controller == 'Members\Controller\Index' && ($action=='login' || $action=='register'))
+        if ($controller == 'Admin\Controller\Index') //$action=='login' || $action=='register'
         {
             $viewModel->setTemplate('layout/simple');
         }
-        elseif ($controller == 'Members\Controller\Works' && $action=='stage')
+        else 
         {
-            $viewModel->setTemplate('layout/stage');
-        }
-        else
-        {
-            $viewModel->setTemplate('layout/members');
+            $viewModel->setTemplate('layout/admin');
             
             $headerView = new ViewModel();
-            $headerView->setTemplate('members/index/header');
+            $headerView->setTemplate('admin/index/header');
             $viewModel->addChild($headerView, 'header');
             
             $asideView = new ViewModel();
-            $asideView->setTemplate('members/index/aside');
+            $asideView->setTemplate('admin/index/aside');
             $viewModel->addChild($asideView, 'aside');
             
             $footerView = new ViewModel();
-            $footerView->setTemplate('members/index/footer');
+            $footerView->setTemplate('admin/index/footer');
             $viewModel->addChild($footerView, 'footer');
-        } */
+        }
     }
     
     public function getConfig()
