@@ -56,15 +56,11 @@ class Module implements ConfigProviderInterface
         $controller = $matches->getParam('controller'); //Admin\Controller\Index
         $action = $matches->getParam('action'); //action login   __NAMESPACE__ Admin
         
-        $dd = strpos($controller, __NAMESPACE__);
-        var_dump($dd);exit;
+        if (false === strpos($controller, __NAMESPACE__)) return; //strpos($controller, __NAMESPACE__) int(0)
         
-        if (false === strpos($controller, __NAMESPACE__))
-        {
-            return;
-        }
+        $viewModel->setTemplate('layout/layout');
         
-        if ($controller == 'Members\Controller\Index' && ($action=='login' || $action=='register'))
+        /* if ($controller == 'Members\Controller\Index' && ($action=='login' || $action=='register'))
         {
             $viewModel->setTemplate('layout/simple');
         }
@@ -87,7 +83,7 @@ class Module implements ConfigProviderInterface
             $footerView = new ViewModel();
             $footerView->setTemplate('members/index/footer');
             $viewModel->addChild($footerView, 'footer');
-        }
+        } */
     }
     
     public function getConfig()
