@@ -19,7 +19,8 @@ class Module implements ConfigProviderInterface
         return [
             'factories' => [
                 Model\AlbumTable::class => function($container) {
-                    $tableGateway = $container->get('AlbumTableGateway'); //Model\AlbumTableGateway::class
+                    //$tableGateway = $container->get('AlbumTableGateway'); //Model\AlbumTableGateway::class
+                    $tableGateway = $container->get(Model\AlbumTableGateway::class);
                     return new Model\AlbumTable($tableGateway);
                 },
                 'AlbumTableGateway' => function ($container) { //Model\AlbumTableGateway::class
