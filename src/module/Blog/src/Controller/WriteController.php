@@ -43,6 +43,7 @@ class WriteController extends AbstractActionController
     
     public function addAction()
     {
+        exit('666');
         $layout = $this->layout(); //$layout->setTemplate('layout/layout');
         
         $headerView = new ViewModel();
@@ -84,6 +85,7 @@ class WriteController extends AbstractActionController
     
     public function editAction()
     {
+        exit('666');
         $layout = $this->layout(); //$layout->setTemplate('layout/layout');
         
         $headerView = new ViewModel();

@@ -1,0 +1,29 @@
+<?= $this->doctype() ?>
+
+<html lang="zh-CN">
+	<head>
+	<meta charset="utf-8">
+    <?=$this->headTitle('IT技术外文文档翻译平台')->setSeparator(' - ')->setAutoEscape(false)?>
+
+    <?=$this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no')
+        ->appendName('renderer', 'webkit')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
+
+    <!-- Le styles -->
+    <?=$this->headLink(['rel' => 'shortcut icon','type' => 'image/vnd.microsoft.icon','href' => $this->basePath() . '/img/favicon.ico'])
+        ->prependStylesheet($this->basePath('css/lib/fontawesome-free-5.0.9/css/fontawesome-all.min.css'))
+        ->prependStylesheet($this->basePath('css/lib/bootstrap-4.0.0/css/bootstrap.min.css'))
+    ?>
+
+    <!-- Scripts -->
+    <?=$this->headScript()->prependFile($this->basePath('css/lib/bootstrap-4.0.0/js/bootstrap.min.js'))->prependFile($this->basePath('js/lib/jquery_v3.1.0/jquery-3.1.0.min.js'))?>
+    </head>
+	<body class="text-center">
+    	<?= $this->header; ?>
+        <?= $this->content ?>
+        <?= $this->footer; ?>
+    	<?= $this->inlineScript() ?>
+	</body>
+</html>
