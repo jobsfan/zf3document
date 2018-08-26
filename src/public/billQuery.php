@@ -186,19 +186,21 @@ class billQuery
     //联邦快递 https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=447058121430&cntry_code=cn&locale=zh_CN
     public function fedex($billNo) //测试单号 447058121430
     {
-        /* $rawHtml = $this->curlRemote('https://www.fedex.com/trackingCal/track', 'post', array(
-            'data' => '{"TrackPackagesRequest":{"appType":"WTRK","appDeviceType":"DESKTOP","supportHTML":true,"supportCurr"processingParameters":{},"trackingInfoList":[{"trackNumberInfo":{"trackingNumber":"447058121430","trackingQualifier":"","trackingCarrier":""}}]}}',
-            'action' => 'trackpackages',
-            'locale' => 'zh_CN',
-            'version' => '1',
-            'format' => 'json',
-        ));
-        echo $rawHtml;exit;
+        $rawHtml = $this->curlRemote('https://www.fedex.com/trackingCal/track', 'post', 'data=%7B%22TrackPackagesRequest%22%3A%7B%22appType%22%3A%22WTRK%22%2C%22appDeviceType%22%3A%22DESKTOP%22%2C%22supportHTML%22%3Atrue%2C%22supportCurrentLocation%22%3Atrue%2C%22uniqueKey%22%3A%22%22%2C%22processingParameters%22%3A%7B%7D%2C%22trackingInfoList%22%3A%5B%7B%22trackNumberInfo%22%3A%7B%22trackingNumber%22%3A%22'.$billNo.'%22%2C%22trackingQualifier%22%3A%22%22%2C%22trackingCarrier%22%3A%22%22%7D%7D%5D%7D%7D&action=trackpackages&locale=zh_CN&version=1&format=json');
         $jsonArr = json_decode($rawHtml, true);
-        print_r($jsonArr);exit;
-        $this->feedbackStr = '<script>location.href="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber='.$billNo.'&cntry_code=cn&locale=zh_CN";</script>'; */
         
-        $rawHtml = $this->curlRemote('http://www.kuaidi100.com/query?type=fedexcn&postid='.$billNo.'&temp=0.785204'.rand(1000000000,9999999999));
+        if (isset($jsonArr['TrackPackagesResponse']['packageList'][0]['scanEventList']) && count($jsonArr['TrackPackagesResponse']['packageList'][0]['scanEventList']))
+        {
+            $this->feedbackStr = $this->tableRender($jsonArr['TrackPackagesResponse']['packageList'][0]['scanEventList'], array(
+                array('th' => '日期', 'usage' => true,'key' => 'date', 'phpTmpl' => '<?php echo $data; ?>'),
+                array('th' => '时间', 'usage' => true,'key' => 'time', 'phpTmpl' => '<?php echo $data; ?>'),
+                array('th' => '状态地点', 'usage' => true,'key' => 'status', 'phpTmpl' => '<?php echo $data; ?>'),
+                array('th' => 'statusCD', 'usage' => true,'key' => 'statusCD', 'phpTmpl' => '<?php echo $data; ?>'),
+                array('th' => 'scanLocation', 'usage' => true,'key' => 'scanLocation', 'phpTmpl' => '<?php echo $data; ?>'),
+            ));
+        }
+        
+        /* $rawHtml = $this->curlRemote('http://www.kuaidi100.com/query?type=fedexcn&postid='.$billNo.'&temp=0.785204'.rand(1000000000,9999999999));
         $jsonArr  = json_decode($rawHtml,true);
         if ($jsonArr['message'] == 'ok' && isset($jsonArr['data'])) //计算前端可以显示的一个table
         {
@@ -206,7 +208,7 @@ class billQuery
                 array('th' => '时间', 'usage' => true,'key' => 'time', 'phpTmpl' => '<?php echo $data; ?>'),
                 array('th' => '地点和跟踪进度', 'usage' => true,'key' => 'context', 'phpTmpl' => '<?php echo $data; ?>'),
             ));
-        }
+        } */
     }
     
     public function __toString()
@@ -214,9 +216,9 @@ class billQuery
         return $this->feedbackStr;
     }
     
-    public function curlRemote($url,$method = 'get', $data = null)
+    public function curlRemote($url,$method = 'get', $data = null, $headerArr = null)
     {
-        $headerArr = array(
+        if (!$headerArr) $headerArr = array(
             'CLIENT_IP: '.mt_rand(0, 255).'.'.mt_rand(0, 255).'.'.mt_rand(0, 255).'.'.mt_rand(0, 255),
             'X-FORWARDED-FOR: '.mt_rand(0, 255).'.'.mt_rand(0, 255).'.'.mt_rand(0, 255).'.'.mt_rand(0, 255),
             'REMOTE_ADDR: '.mt_rand(0, 255).'.'.mt_rand(0, 255).'.'.mt_rand(0, 255).'.'.mt_rand(0, 255),
