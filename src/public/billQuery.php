@@ -77,16 +77,27 @@ class billQuery
     //UPS的处理逻辑 https://www.ups.com/cn/zh/Home.page?loc=zh_CN
     public function ups($billNo) //测试单号 1ZAF61240462165724
     {
-        $this->feedbackStr = '<script>location.href="http://wwwapps.ups.com/WebTracking/track?HTMLVersion=5.0&loc=zh_CN&Requester=UPSHome&WBPM_lid=homepage%2Fct1.html_pnl_trk&trackNums='.$billNo.'&track.x=Track";</script>';
-        
-        /* $rawHtml = $this->curlRemote('https://wwwapps.ups.com/WebTracking/track?loc=zh_CN', 'post', array('HTMLVersion' => '5.0', 'loc' => 'zh_CN', 'trackNums' => $billNo, 'track.x' => 'Track'));
-        $this->feedbackStr = $rawHtml; */
+        $rawHtml = $this->curlRemote('https://wwwapps.ups.com/WebTracking/track?HTMLVersion=5.0&loc=zh_CN&Requester=UPSHome&WBPM_lid=homepage%252Fct1.html_pnl_trk&trackNums='.$billNo.'&track.x=Track');
+        preg_match('%(<div class="panel panel-default module3">.*?)<script[^>]*?>%is', $rawHtml, $matches);
+        if (isset($matches[1]) && $matches[1])
+        {
+            $this->feedbackStr = '<div class="uniforResultHolder">'.preg_replace('%<ul class="pull-right">.*?</ul>%is', '', $matches[1]).'</div>';
+        }
     }
     
     //TNT的处理逻辑 https://www.tnt.com/express/zh_cn/site/shipping-tools/tracking.html?cons=GD218030238WW&searchType=CON&source=home_widget
     public function tnt($billNo) //测试单号 GD218030238WW
     {
-        $this->feedbackStr = '<script>location.href="https://www.tnt.com/express/zh_cn/site/shipping-tools/tracking.html?cons='.$billNo.'&searchType=CON&source=home_widget";</script>';
+        $rawHtml = $this->curlRemote('https://www.tnt.com/api/v2/shipment?con='.$billNo.'&searchType=CON&locale=zh_CN&channel=OPENTRACK');
+        $jsonArr = json_decode($rawHtml, true);
+        if (isset($jsonArr['tracker.output']['consignment'][0]['statusData']) && count($jsonArr['tracker.output']['consignment'][0]['statusData']))
+        {
+            $this->feedbackStr = $this->tableRender($jsonArr['tracker.output']['consignment'][0]['statusData'], array(
+                array('th' => '状态', 'usage' => true,'key' => 'statusDescription', 'phpTmpl' => '<?php echo $data; ?>'),
+                array('th' => '时间', 'usage' => true,'key' => 'localEventDate', 'phpTmpl' => '<?php echo date("Y-m-d H:i:s",strtotime($data)); ?>'),
+                array('th' => '位置', 'usage' => true,'key' => 'depot', 'phpTmpl' => '<?php echo $data; ?>'),
+            ));
+        }
     }
     
     //优速的处理逻辑 http://www.uc56.com/
@@ -126,7 +137,7 @@ class billQuery
         {
             $this->feedbackStr = $this->tableRender($jsonArr['deliverInfo'], array(
                 array('th' => '时间', 'usage' => true,'key' => 'date', 'phpTmpl' => '<?php echo $data; ?>'),
-                array('th' => '地点', 'usage' => true,'key' => 'place', 'phpTmpl' => '<?php echo $data; ?>'),
+                array('th' => '地点', 'usage' => true,'key' => 'place', 'phpTmpl' => '<?php echo str_replace("林道","鸿昌顺",$data); ?>'),
                 array('th' => '操作记录', 'usage' => true,'key' => 'info', 'phpTmpl' => '<?php echo $data; ?>'),
             ));
         }
@@ -159,16 +170,43 @@ class billQuery
     //http://www.cn.dhl.com/shipmentTracking?AWB=4159475471&countryCode=cn&languageCode=zh&_=1535209424457
     public function dhl($billNo) //测试单号 4159475471
     {
-        $this->feedbackStr = '<script>location.href="http://www.cn.dhl.com/zh/express/tracking.html?AWB='.$billNo.'&brand=DHL";</script>';
+        $rawHtml = $this->curlRemote('http://www.cn.dhl.com/shipmentTracking?AWB='.$billNo.'&countryCode=cn&languageCode=zh&_='.time());
+        $jsonArr = json_decode($rawHtml, true);
+        if (isset($jsonArr['results'][0]['checkpoints']) && count($jsonArr['results'][0]['checkpoints']))
+        {
+            $this->feedbackStr = $this->tableRender($jsonArr['results'][0]['checkpoints'], array(
+                array('th' => '跟踪进度', 'usage' => true,'key' => 'description', 'phpTmpl' => '<?php echo $data; ?>'),
+                array('th' => '时刻', 'usage' => true,'key' => 'time', 'phpTmpl' => '<?php echo $data; ?>'),
+                array('th' => '日期', 'usage' => true,'key' => 'date', 'phpTmpl' => '<?php echo $data; ?>'),
+                array('th' => '地点', 'usage' => true,'key' => 'location', 'phpTmpl' => '<?php echo $data; ?>'),
+            ));
+        }
     }
     
     //联邦快递 https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=447058121430&cntry_code=cn&locale=zh_CN
     public function fedex($billNo) //测试单号 447058121430
     {
-        $this->feedbackStr = '<script>location.href="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber='.$billNo.'&cntry_code=cn&locale=zh_CN";</script>';
-        /* $rawHtml = $this->curlRemote('http://www.hcskd.com/search.php', 'post', array('KD_id' => $billNo, 'Submit' => 'Submit'));
-        $this->feedbackStr = $rawHtml;
-        $this->feedbackStr = 'fedex'; */
+        /* $rawHtml = $this->curlRemote('https://www.fedex.com/trackingCal/track', 'post', array(
+            'data' => '{"TrackPackagesRequest":{"appType":"WTRK","appDeviceType":"DESKTOP","supportHTML":true,"supportCurr"processingParameters":{},"trackingInfoList":[{"trackNumberInfo":{"trackingNumber":"447058121430","trackingQualifier":"","trackingCarrier":""}}]}}',
+            'action' => 'trackpackages',
+            'locale' => 'zh_CN',
+            'version' => '1',
+            'format' => 'json',
+        ));
+        echo $rawHtml;exit;
+        $jsonArr = json_decode($rawHtml, true);
+        print_r($jsonArr);exit;
+        $this->feedbackStr = '<script>location.href="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber='.$billNo.'&cntry_code=cn&locale=zh_CN";</script>'; */
+        
+        $rawHtml = $this->curlRemote('http://www.kuaidi100.com/query?type=fedexcn&postid='.$billNo.'&temp=0.785204'.rand(1000000000,9999999999));
+        $jsonArr  = json_decode($rawHtml,true);
+        if ($jsonArr['message'] == 'ok' && isset($jsonArr['data'])) //计算前端可以显示的一个table
+        {
+            $this->feedbackStr = $this->tableRender($jsonArr['data'], array(
+                array('th' => '时间', 'usage' => true,'key' => 'time', 'phpTmpl' => '<?php echo $data; ?>'),
+                array('th' => '地点和跟踪进度', 'usage' => true,'key' => 'context', 'phpTmpl' => '<?php echo $data; ?>'),
+            ));
+        }
     }
     
     public function __toString()
