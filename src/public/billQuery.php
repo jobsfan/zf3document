@@ -89,6 +89,10 @@ class billQuery
         {
             $this->tracktrace($billNo);
         }
+        elseif (preg_match('%^38\d{9}$%', $billNo))
+        {
+            $this->ocs($billNo);
+        }
         elseif (preg_match('%^(752|755|571|021|111)\d{8}$%', $billNo)) //跨越快递 以这些区号开头的11位数字
         {
             $this->kyexpress($billNo);
@@ -188,6 +192,16 @@ class billQuery
     {
         $billArr = explode('-', $billNo);
         $this->feedbackStr = '<script>location.href="http://www.polaraircargo.com/TrackAndTraceUI/WebForm1.aspx?pe='.$billArr[0].'&se='.$billArr[1].'";</script>';
+    }
+    
+    public function ocs($billNo) //https://webcsw.ocs.co.jp/csw/ECSWG0201R00003P.do?cwbno=38016240452
+    {
+        $rawHtml = $this->curlRemote('https://webcsw.ocs.co.jp/csw/ECSWG0201R00003P.do?cwbno='.$billNo);
+        preg_match_all('%<table[^>]+>\s+<tbody id="chart_header">.*?</tbody>\s+<tbody id="chart"[^>]+>.*?</tbody>.*?</table>%is', $rawHtml, $matches);
+        if (isset($matches[0][1]) && $matches[0][1])
+        {
+            $this->feedbackStr = '<div class="uniforResultHolder">'.$matches[0][1].'</div>';
+        }
     }
     
     //跨越快递：http://www.ky-express.com/
