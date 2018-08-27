@@ -36,7 +36,7 @@ class billQuery
         {
             $this->ups($billNo);
         }
-        elseif (preg_match('%^GD\d+WW$%i', $billNo)) // TNT GD开头WW结尾
+        elseif (preg_match('%^G[D|E]\d+WW$%i', $billNo)) // TNT GD开头WW结尾
         {
             $this->tnt($billNo);
         }
@@ -55,6 +55,10 @@ class billQuery
         elseif (preg_match('%^\d{3}\-\d{8}$%', $billNo)) //空运查询 前面3位数开头 - 横线隔开  后面8位数
         {
             $this->tracktrace($billNo);
+        }
+        elseif (preg_match('%^(752|755|571|021|111)\d{8}$%', $billNo)) //跨越快递 以这些区号开头的11位数字
+        {
+            $this->kyexpress($billNo);
         }
         elseif (preg_match('%^1[0|1]\d{9}$%', $billNo)) //百世物流 10和11开头的11位数字
         {
@@ -120,7 +124,7 @@ class billQuery
     public function tdlexp($billNo) //测试单号 3334747124
     {
         $rawHtml = $this->curlRemote('http://www.tdlexp.com/cgi-bin/GInfo.dll?EmmisTrack', 'post', 'w=tdlexp&ntype=1000&cno='.$billNo);
-        preg_match('%<table width=\'99%\' border=\'0\' cellpadding=\'1\' cellspacing=\'0\' bgcolor=\'#F3F3F3\' class=\'trackListTable\'>.+?</table><br>%is', iconv('gb2312', 'utf-8//IGNORE', $rawHtml), $matches);
+        preg_match('/<table width=\'99%\' border=\'0\' cellpadding=\'1\' cellspacing=\'0\' bgcolor=\'#F3F3F3\' class=\'trackListTable\'>.+?</table><br>/is', iconv('gb2312', 'utf-8//IGNORE', $rawHtml), $matches);
         if (isset($matches[0]) && $matches[0])
         {
             $this->feedbackStr = '<div class="uniforResultHolder">'.$matches[0].'</div>';
@@ -147,6 +151,12 @@ class billQuery
     {
         $billArr = explode('-', $billNo);
         $this->feedbackStr = '<script>location.href="http://www.polaraircargo.com/TrackAndTraceUI/WebForm1.aspx?pe='.$billArr[0].'&se='.$billArr[1].'";</script>';
+    }
+    
+    //跨越快递：http://www.ky-express.com/
+    public function kyexpress($billNo) //测试单号 75200688433 75502156246
+    {
+        $this->feedbackStr = '<div class="resultErrorHolder">有验证码，搞不了！</div>';
     }
     
     //百世物流的逻辑处理 http://www.800best.com/freight/track.asp
