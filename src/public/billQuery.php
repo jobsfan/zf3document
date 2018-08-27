@@ -120,7 +120,7 @@ class billQuery
     public function tdlexp($billNo) //测试单号 3334747124
     {
         $rawHtml = $this->curlRemote('http://www.tdlexp.com/cgi-bin/GInfo.dll?EmmisTrack', 'post', array('w' => 'tdlexp', 'ntype' => 1000, 'cno' => $billNo));
-        
+        echo $rawHtml;exit;
         preg_match('%(<table.*?class=\'trackListTable\'>.*?</table>)<br>%is', $rawHtml, $matches);
         if (isset($matches[1]) && $matches[1])
         {
