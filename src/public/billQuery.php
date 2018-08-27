@@ -23,7 +23,7 @@ body {width:100%; font: 14px STHeiti,Arial; background: #b52f28; color:#000000;}
 	<form name="billQueryForm" action="" method="get">
 		<div class="formHolder">
 			<div class="inputHolder">
-				<input name="billNO" type="text" placeholder="请在此输入您的运单号" />
+				<input name="billNo" type="text" placeholder="请在此输入您的运单号" />
 			</div>
 			<button class="formBtn" type="submit">查询</button>
 		</div>
