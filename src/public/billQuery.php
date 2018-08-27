@@ -1,8 +1,41 @@
-<?php
-//测试代码
-$billNo = $_GET['billNo'];
-echo (string)(new billQuery($billNo));
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>鸿昌顺国际快递查询</title>
+<style>
+* {margin:0;padding:0;border:0;outline:0;}
+html {width:100%; overflow-x:hidden; background: #b52f28;}
+body {width:100%; font: 14px STHeiti,Arial; background: #b52f28; color:#000000;}
+.slogan {width: 100%;    height: 70px;    line-height: 70px;    margin: 40px 0 30px 0;    clear: both;    overflow: hidden;    color: #ffffff;    font-size: 49px;    font-weight: bold;    text-align: center;}
+.formHolder {width: 588px;    height: 40px;    margin: 0 auto;    clear: both;    overflow: hidden;}
+.formHolder .inputHolder {width: 450px;    height: 100%;    float: left;    overflow: hidden;}
+.formHolder .inputHolder input {display: block;    width: 100%;    height: 100%;    overflow: hidden;    text-indent: 10px;    border-radius: 8px;    border: 1px solid #d4c241;    box-sizing: content-box;}
+.formHolder .formBtn {width: 136px;    background: transparent;    height: 100%;    line-height: 40px;    float: right;    overflow: hidden;    color: #ffffff;    font-size: 36px;    cursor: pointer;}
+.uniforResultHolder {width:1080px; min-height:30px; margin: 20px auto 20px auto; clear:both; overflow:hidden; background: #ffffff;}
+.uniforResultHolder table {}
+.footer-reminder {width:1080px; margin: 0 auto 40px auto; clear:both; overflow:hidden; text-align: right;}
+.footer-reminder a {font-size: 20px;    color: #ffffff;    text-decoration: none;}
+</style>
+</head>
+<body>
+	<div class="slogan">鸿昌顺国际快递查询</div>
+	<form name="billQueryForm" action="" method="get">
+		<div class="formHolder">
+			<div class="inputHolder">
+				<input name="billNO" type="text" placeholder="请在此输入您的运单号" />
+			</div>
+			<button class="formBtn" type="submit">查询</button>
+		</div>
+	</form>
+	<div class="uniforResultHolder"><?php echo (string)(new billQuery((string)($_GET['billNo']))); ?></div>
+	<div class="footer-reminder">
+		<a href="http://www.hcskd.com">查询网址 www.hcskd.com</a>
+	</div>
+</body>
+</html>
 
+<?php
 /**
  * 给鸿昌顺写的单号查询类
  * 构造函数传入一个订单号
