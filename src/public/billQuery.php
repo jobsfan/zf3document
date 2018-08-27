@@ -193,7 +193,17 @@ class billQuery
     //跨越快递：http://www.ky-express.com/
     public function kyexpress($billNo) //测试单号 75200688433 75502156246
     {
-        $this->feedbackStr = '<div class="resultErrorHolder">有验证码，搞不了！</div>';
+        $rawHtml = $this->curlRemote('http://www.kuaidi100.com/query?type=kuayue&postid='.$billNo.'&temp=0.262159'.rand(1000000000,9999999999));
+        $jsonArr  = json_decode($rawHtml,true);
+        if ($jsonArr['message'] == 'ok' && isset($jsonArr['data'])) //计算前端可以显示的一个table
+        {
+            $this->feedbackStr = $this->tableRender($jsonArr['data'], array(
+                array('th' => '时间', 'usage' => true,'key' => 'time', 'phpTmpl' => '<?php echo $data; ?>'),
+                array('th' => '', 'usage' => false,'key' => '', 'phpTmpl' => ''),
+                array('th' => '地点和跟踪进度', 'usage' => true,'key' => 'context', 'phpTmpl' => '<?php echo $data; ?>'),
+                array('th' => '', 'usage' => false,'key' => '', 'phpTmpl' => ''),
+            ));
+        }
     }
     
     //百世物流的逻辑处理 http://www.800best.com/freight/track.asp
