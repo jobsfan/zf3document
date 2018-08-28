@@ -13,7 +13,10 @@ body {width:100%; font: 14px STHeiti,Arial; background: #b52f28; color:#000000;}
 .formHolder .inputHolder input {display: block;    width: 100%;    height: 100%;    overflow: hidden;    text-indent: 10px;    border-radius: 8px;    border: 1px solid #d4c241;    box-sizing: content-box;}
 .formHolder .formBtn {width: 136px;    background: transparent;    height: 100%;    line-height: 40px;    float: right;    overflow: hidden;    color: #ffffff;    font-size: 36px;    cursor: pointer;}
 .uniforResultHolder {width:1080px; min-height:30px; margin: 20px auto 20px auto; clear:both; overflow:hidden; background: #ffffff;}
-.uniforResultHolder table {}
+.uniforResultHolder table {width:100%; border-collapse: collapse;    border: 1px solid #cccccc;}
+.uniforResultHolder table tr {height: 30px; line-height: 30px;}
+.uniforResultHolder table tr th {background: #cacaca;   border: 1px solid #cccccc;}
+.uniforResultHolder table tr td {text-align:left; text-indent: 20px;    border: 1px solid #cccccc;}
 .footer-reminder {width:1080px; margin: 0 auto 40px auto; clear:both; overflow:hidden; text-align: right;}
 .footer-reminder a {font-size: 20px;    color: #ffffff;    text-decoration: none;}
 </style>
