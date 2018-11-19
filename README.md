@@ -12,7 +12,7 @@ php官方框架的翻译项目，如果侵权请告知
 5、翻译逻辑搭建   
 
 ## To do list ##
-1. 用zf3框架搭建一个网站 www.wendangs.com   
+1. 用zf3框架搭建一个网站 git.wendangs.com   
 2. 简易首页
 3. 数据库的建立
 4. 注册页  
